@@ -5,9 +5,7 @@
 </template>
 
 <script>
-
 export default {
-  mixins: [],
   components: {
   },
   computed: {
