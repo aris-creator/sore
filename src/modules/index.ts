@@ -1,4 +1,4 @@
-// import { extendModule } from '@vue-storefront/core/lib/module'
+import { extendModule } from '@vue-storefront/core/lib/module'
 import { VueStorefrontModule } from '@vue-storefront/core/lib/module'
 import { Catalog } from "@vue-storefront/core/modules/catalog"
 import { Cart } from '@vue-storefront/core/modules/cart'
@@ -21,7 +21,6 @@ import { RawOutputExample } from './raw-output-example'
 import { Magento2CMS } from './magento-2-cms'
 
 
-// This is how you can extend any of VS modues
 // const extendCartVuex = {
 //   actions: {
 //     load () {
