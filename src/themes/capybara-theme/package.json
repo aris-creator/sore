@@ -1,0 +1,17 @@
+{
+  "name": "@vue-storefront/project-capybara",
+  "version": "0.1.0",
+  "description": "Default theme for Vue Storefront",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cd ../../../ && node core/scripts/server"
+  },
+  "author": "filrak & patzick",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
