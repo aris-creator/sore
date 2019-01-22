@@ -151,6 +151,18 @@ export default {
         }
       },
       {
+        test: /\.(html|htm)$/,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'stylus-loader'
+        ]
+      },
+      {
         test: /\.css$/,
         use: [
           'vue-style-loader',
