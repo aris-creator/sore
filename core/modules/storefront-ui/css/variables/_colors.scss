@@ -1,0 +1,34 @@
+
+// General color names
+
+$c-green-primary: #5ECE7B;
+$c-green-seconday: #9EE2B0;
+$c-dark-primary: #1D1F22;
+$c-dark-secondary: #737680;
+$c-gray-primary: #A3A5AD;
+$c-gray-secondary: #BEBFC4;
+$c-light-primary: #F1F2F3;
+$c-light-secondary: #FFFFFF;
+$c-pink-primary: #F08C7D;
+$c-pink-secondary: #FFF8F7;
+$c-yellow-primary: #FFDE3B;
+$c-yellow-secondary:#FFFCED;
+$c-blue-primary: #6699CC;
+$c-blue-secondary: #F5F7FA;
+
+// Alerts
+
+$c-info-text: $c-blue-primary;
+$c-info-bg: $c-blue-secondary;
+
+$c-warning-text: $c-yellow-primary;
+$c-warning-bg: $c-yellow-secondary;
+
+$c-error-text: $c-pink-primary;
+$c-error-bg: $c-pink-seconday;
+
+// Text
+
+$c-text-primary: $c-dark-primary;
+$c-text-secondary: $c-gray-secondary; 
+

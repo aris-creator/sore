@@ -1,0 +1,15 @@
+.vsf-bottom-navigation {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+
+  .vsf-bottom-navigation-element {
+    .vsf-bottom-navigation-element-img {
+      width: 2rem;
+      height: auto;
+      padding: 1rem;
+    }
+  }
+}
