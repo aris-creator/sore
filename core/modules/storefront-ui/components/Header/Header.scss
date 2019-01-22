@@ -1,9 +1,28 @@
 @import '~@vue-storefront/core/modules/storefront-ui/css/variables';
 
 .vsf-header {
-  background: $c-bg-primary;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @media ( max-width: $mobile-max ) {
+    background: $c-bg-primary;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__nav {
+    @media ( max-width: $mobile-max ) {
+      display: none;
+    }
+  }
+
+  &__search {
+    @media ( max-width: $mobile-max ) {
+      display: none;
+    }
+  }
+  &__icon {
+    @media ( max-width: $mobile-max ) {
+      display: none;
+    }
+  }
 }
