@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import metaInfo from './head'
 import MainHeader from 'theme/components/MainHeader'
 import BottomNavigation from 'theme/components/BottomNavigation'
 
@@ -17,6 +18,7 @@ export default {
   },
   computed: {
   },
+  metaInfo,
   components: {
     MainHeader,
     BottomNavigation
@@ -26,4 +28,9 @@ export default {
 
 <style lang="scss">
 @import '~@vue-storefront/core/modules/storefront-ui/css/variables';
+
+body {
+  margin: 0;
+  padding: 0;
+}
 </style>
