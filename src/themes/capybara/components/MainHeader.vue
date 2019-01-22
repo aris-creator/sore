@@ -9,6 +9,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@vue-storefront/core/modules/storefront-ui/components/Header/styles';
+@import '~@vue-storefront/core/modules/storefront-ui/components/Header/styles';
 </style>
-
