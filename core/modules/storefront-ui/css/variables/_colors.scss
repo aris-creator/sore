@@ -1,6 +1,5 @@
 
 // General color names
-
 $c-green-primary: #5ECE7B;
 $c-green-seconday: #9EE2B0;
 $c-dark-primary: #1D1F22;
@@ -17,17 +16,17 @@ $c-blue-primary: #6699CC;
 $c-blue-secondary: #F5F7FA;
 
 // Alerts
-
 $c-info-text: $c-blue-primary;
 $c-info-bg: $c-blue-secondary;
-
 $c-warning-text: $c-yellow-primary;
 $c-warning-bg: $c-yellow-secondary;
-
 $c-error-text: $c-pink-primary;
 $c-error-bg: $c-pink-secondary;
 
 // Text
-
 $c-text-primary: $c-dark-primary;
 $c-text-secondary: $c-gray-secondary; 
+
+// Background
+$c-bg-primary: $c-light-primary;
+$c-bg-secondary: $c-light-secondary;
