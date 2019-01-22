@@ -1,6 +1,6 @@
 <script>
-import template from '@vue-storefront/core/modules/storefront-ui/components/Header/template'
-import instance from '@vue-storefront/core/modules/storefront-ui/components/Header/instance'
+import template from '@vue-storefront/core/modules/storefront-ui/components/Header/Header.html'
+import instance from '@vue-storefront/core/modules/storefront-ui/components/Header/Header.ts'
 
 export default {
   template,
@@ -9,5 +9,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@vue-storefront/core/modules/storefront-ui/components/Header/styles';
+@import '~@vue-storefront/core/modules/storefront-ui/components/Header/Header.scss';
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="vsf-header flex between">
+  <div class="vsf-header">
     <slot name="logo">
       logo markup
     </slot>

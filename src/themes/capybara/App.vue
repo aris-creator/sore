@@ -2,11 +2,14 @@
   <div id="app" class="flex column">
     <main-header/>
     <router-view/>
+    <bottom-navigation/>
   </div>
 </template>
 
 <script>
 import MainHeader from 'theme/components/MainHeader'
+import BottomNavigation from 'theme/components/BottomNavigation'
+
 export default {
   data () {
     return {
@@ -15,7 +18,8 @@ export default {
   computed: {
   },
   components: {
-    MainHeader
+    MainHeader,
+    BottomNavigation
   }
 }
 </script>
