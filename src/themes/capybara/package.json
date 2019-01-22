@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/project-capybara",
+  "name": "@vue-storefront/theme-capybara",
   "version": "0.1.0",
   "description": "Default theme for Vue Storefront",
   "main": "index.js",
