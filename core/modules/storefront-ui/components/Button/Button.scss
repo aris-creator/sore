@@ -1,6 +1,8 @@
 @import '~@vue-storefront/core/modules/storefront-ui/css/variables';
 
 .vsf-button {
+  padding: 15px 40px;
+  font-size: 26px;
   color: $c-button-text-primary;
   background-color: $c-button-bg-primary;
 }
