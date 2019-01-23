@@ -7,20 +7,40 @@ body {
     font-size: $body-font-size-mobile;
   }
 }
-.margin {
+// temp, pozniej w zmienne
+
+.margin-small {
   margin: 5px;
 }
-.margin-x {
+.margin-x-small {
   margin-left: 5px;
   margin-right: 5px;
 }
-.margin-y {
+.margin-y-small {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.margin-left {
+.margin-left-small {
   margin-left: 5px;
 }
-.margin-right {
+.margin-right-small {
   margin-right: 5px;
+}
+
+.margin-big {
+  margin: 10px;
+}
+.margin-x-big {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.margin-y-big {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.margin-left-big {
+  margin-left: 10px;
+}
+.margin-right-big {
+  margin-right: 10px;
 }
