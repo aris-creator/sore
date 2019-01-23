@@ -1,15 +1,38 @@
+@import '~@vue-storefront/core/modules/storefront-ui/css/variables';
+
 .vsf-bottom-navigation {
   position: fixed;
   bottom: 0;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
+  background-color: $c-white;
 
+  .vsf-bottom-navigation-elements {
+    display: flex;
+  }
+  
   .vsf-bottom-navigation-element {
-    .vsf-bottom-navigation-element-img {
-      width: 2rem;
-      height: auto;
-      padding: 1rem;
+    padding: 0 0.7rem;
+    opacity: 0.5;
+    transition: 0.3s all;
+
+    &.active,
+    &.cart-button {
+      opacity: 1;
     }
+  }
+
+  .vsf-bottom-navigation-element-img {
+    width: 1.5rem;
+    height: auto;
+    padding: 0.5rem;
+  }
+
+  .vsf-bottom-navigation-cart-button {
+    background-color: $c-button-bg-primary;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(66, 66, 66, 0.2);
+
   }
 }
