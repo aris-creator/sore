@@ -1,5 +1,15 @@
 $body-font-family: 'SangBleu Sans';
-$body-font-size: 1.125rem;
-$h1-font-size: 2.25rem;
-$h2-font-size: 1.938rem;
-$h3-font-size: 1.063rem;
+
+// Base font size
+$body-font-size-desktop: 1.125rem;
+$body-font-size-mobile: 0.875rem;
+
+// Heading font size
+$h1-font-size-desktop: 2.25rem;
+$h2-font-size-desktop: 1.5rem;
+$h3-font-size-desktop: 1.125rem;
+$h4-font-size-desktop: 1.125rem;
+$h1-font-size-mobile: 1.125rem
+$h2-font-size-mobile: 1rem;
+$h3-font-size-mobile: 1rem;
+$h4-font-size-mobile: 1rem;
