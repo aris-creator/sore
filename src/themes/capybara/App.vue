@@ -28,6 +28,7 @@ export default {
 
 <style lang="scss">
 @import '~@vue-storefront/core/modules/storefront-ui/css/globals';
+@import '~@vue-storefront/core/modules/storefront-ui/css/helpers/visibility';
 
 body {
   margin: 0;

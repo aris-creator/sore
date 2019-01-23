@@ -33,7 +33,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@vue-storefront/core/modules/storefront-ui/css/helpers/visibility';
   .top-category-nav {
     display: flex;
     flex-flow: row nowrap;
