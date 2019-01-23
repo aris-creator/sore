@@ -21,6 +21,7 @@
 import VsfButton from '@vue-storefront/core/modules/storefront-ui/components/Button/Button.vue'
 
 export default {
+  name: 'Home',
   components: {
     VsfButton
   },
@@ -31,7 +32,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~@vue-storefront/core/modules/storefront-ui/css/helpers/visibility';
   .top-category-nav {
     display: flex;
     flex-flow: row nowrap;
