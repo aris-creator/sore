@@ -1,0 +1,9 @@
+@import 'variables/typography';
+@import 'variables/breakpoints';
+
+body {
+  font-size: $body-font-size-desktop;
+  @media ( max-width: $mobile-max ) {
+    font-size: $body-font-size-mobile;
+  }
+}

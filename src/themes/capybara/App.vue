@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@vue-storefront/core/modules/storefront-ui/css/variables';
+@import '~@vue-storefront/core/modules/storefront-ui/css/globals';
 
 body {
   margin: 0;
