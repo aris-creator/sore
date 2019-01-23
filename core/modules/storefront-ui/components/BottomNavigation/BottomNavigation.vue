@@ -1,16 +1,13 @@
-<template>
-  <div class="vsf-header">
-    <slot name="logo">
-      logo markup
-    </slot>
-    <slot name="menu">
-      menu markup
-    </slot>
-  </div>
-</template>
+<script>
+import template from './BottomNavigation.html'
+import instance from './BottomNavigation.ts'
 
-<style>
-  .vsf-header {
-    width: 100%;
-  }
+export default {
+  template,
+  ...instance
+}
+</script>
+
+<style lang="scss">
+@import '~./BottomNavigation.scss';
 </style>
