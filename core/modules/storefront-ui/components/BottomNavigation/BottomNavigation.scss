@@ -8,6 +8,10 @@
   width: 100%;
   background-color: $c-white;
 
+  @media ( min-width: $tablet-min ) {
+    display: none
+  }
+
   .vsf-bottom-navigation-elements {
     display: flex;
   }
