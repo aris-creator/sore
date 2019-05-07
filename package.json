@@ -135,6 +135,7 @@
     "print-message": "^2.1.0",
     "rimraf": "^2.6.0",
     "sass-loader": "^7.1.0",
+    "serverless-http": "^2.0.1",
     "shelljs": "^0.8.1",
     "sw-precache-webpack-plugin": "^0.11.5",
     "ts-jest": "^24.0.0",
