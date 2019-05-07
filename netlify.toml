@@ -1,6 +1,6 @@
 [build]
   # This will be run the site build
-  command = "yarn build"
+  command = "nvm ls-remote && yarn build"
   # This is the directory is publishing to netlify's CDN
   publish = "/"
   # functions build directory
