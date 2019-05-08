@@ -4,4 +4,4 @@
   # This is the directory is publishing to netlify's CDN
   publish = "/"
   # functions build directory
-  functions = "/core/scripts"
+  # functions = "/core/scripts"
