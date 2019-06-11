@@ -257,7 +257,7 @@ const actions: ActionTree<CartState, RootState> = {
     }
   },
   /** Get one single item from the client's cart */
-  getItem ({ getters }, sku) {
+  async getItem ({ getters }, sku) {
     return getters.getCartItems.find(p => p.sku === sku)
   },
   goToCheckout () {
@@ -307,7 +307,7 @@ const actions: ActionTree<CartState, RootState> = {
           continue
         }
       }
-      const record = getters.getCartItems.find(p => p.sku === product.sku)
+      const record = await dispatch('getItem', product.sku)
       const result = await dispatch('stock/check', { product: product, qty: record ? record.qty + 1 : (product.qty ? product.qty : 1) }, {root: true})
       product.onlineStockCheckid = result.onlineCheckTaskId // used to get the online check result
       if (result.status === 'volatile') {
