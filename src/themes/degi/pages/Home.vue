@@ -8,7 +8,7 @@
       <div>
         <header class="col-md-12">
           <h2 class="align-center cl-accent">
-            {{ $t('Everything new') }}
+            {{ $t('Everything new style') }}
           </h2>
         </header>
       </div>
