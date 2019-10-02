@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/theme-default",
+  "name": "@vue-storefront/theme-degi",
   "version": "1.10.3",
   "description": "Default theme for Vue Storefront",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cd ../../../ && node core/scripts/server"
   },
-  "author": "pkarw <pkarwatka@divante.pl> and contributors",
+  "author": "degi <andflyaway@naver.com> and contributors",
   "license": "MIT",
   "dependencies": {
     "bodybuilder": "2.2.13",
