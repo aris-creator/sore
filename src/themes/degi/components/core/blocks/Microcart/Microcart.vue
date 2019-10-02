@@ -1,9 +1,12 @@
 <template>
   <div
-    class="microcart cl-accent"
+    class="microcart cl-accent relative"
     :class="[productsInCart.length ? 'bg-cl-secondary' : 'bg-cl-primary']"
     data-testid="microcart"
   >
+    <transition name="fade">
+      <div v-if="isEditMode" class="overlay" @click="closeEditMode" />
+    </transition>
     <div class="row bg-cl-primary px40 actions">
       <div class="col-xs end-xs">
         <button
@@ -46,7 +49,7 @@
       {{ $t('to find something beautiful for You!') }}
     </div>
     <ul v-if="productsInCart.length" class="bg-cl-primary m0 px40 pb40 products">
-      <product v-for="product in productsInCart" :key="product.sku" :product="product" />
+      <product v-for="product in productsInCart" :key="product.checksum || product.sku" :product="product" />
     </ul>
     <div v-if="productsInCart.length" class="summary px40 cl-accent serif">
       <h3 class="m0 pt40 mb30 weight-400 summary-heading">
@@ -121,98 +124,118 @@
 </template>
 
 <script>
-import i18n from '@vue-storefront/i18n'
-import { isModuleRegistered } from '@vue-storefront/core/lib/module'
+  import { mapGetters, mapActions } from 'vuex'
+  import i18n from '@vue-storefront/i18n'
+  import { isModuleRegistered } from '@vue-storefront/core/lib/modules'
 
-import Microcart from '@vue-storefront/core/compatibility/components/blocks/Microcart/Microcart'
-import VueOfflineMixin from 'vue-offline/mixin'
-import onEscapePress from '@vue-storefront/core/mixins/onEscapePress'
-import InstantCheckout from 'src/modules/instant-checkout/components/InstantCheckout.vue'
+  import VueOfflineMixin from 'vue-offline/mixin'
+  import onEscapePress from '@vue-storefront/core/mixins/onEscapePress'
+  import InstantCheckout from 'src/modules/instant-checkout/components/InstantCheckout.vue'
+  import { registerModule } from '@vue-storefront/core/lib/modules'
 
-import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
-import ClearCartButton from 'theme/components/core/blocks/Microcart/ClearCartButton'
-import ButtonFull from 'theme/components/theme/ButtonFull'
-import ButtonOutline from 'theme/components/theme/ButtonOutline'
-import Product from 'theme/components/core/blocks/Microcart/Product'
+  import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
+  import ClearCartButton from 'theme/components/core/blocks/Microcart/ClearCartButton'
+  import ButtonFull from 'theme/components/theme/ButtonFull'
+  import ButtonOutline from 'theme/components/theme/ButtonOutline'
+  import Product from 'theme/components/core/blocks/Microcart/Product'
+  import EditMode from './EditMode'
+  import { InstantCheckoutModule } from 'src/modules/instant-checkout'
 
-export default {
-  components: {
-    Product,
-    ClearCartButton,
-    ButtonFull,
-    ButtonOutline,
-    BaseInput,
-    InstantCheckout
-  },
-  mixins: [
-    Microcart,
-    VueOfflineMixin,
-    onEscapePress
-  ],
-  data () {
-    return {
-      addCouponPressed: false,
-      couponCode: '',
-      componentLoaded: false,
-      isInstantCheckoutRegistered: isModuleRegistered('instant-checkout')
-    }
-  },
-  props: {
-    isCheckoutMode: {
-      type: Boolean,
-      required: false,
-      default: () => false
-    }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      this.componentLoaded = true
-    })
-  },
-  methods: {
-    addDiscountCoupon () {
-      this.addCouponPressed = true
+  export default {
+    components: {
+      Product,
+      ClearCartButton,
+      ButtonFull,
+      ButtonOutline,
+      BaseInput,
+      InstantCheckout
     },
-    clearCoupon () {
-      this.removeCoupon()
-      this.addCouponPressed = false
-    },
-    async setCoupon () {
-      const couponApplied = await this.applyCoupon(this.couponCode)
-      this.addCouponPressed = false
-      this.couponCode = ''
-      if (!couponApplied) {
-        this.$store.dispatch('notification/spawnNotification', {
-          type: 'warning',
-          message: i18n.t("You've entered an incorrect coupon code. Please try again."),
-          action1: { label: i18n.t('OK') }
-        })
+    mixins: [
+      VueOfflineMixin,
+      EditMode,
+      onEscapePress
+    ],
+    data () {
+      return {
+        addCouponPressed: false,
+        couponCode: '',
+        componentLoaded: false,
+        isInstantCheckoutRegistered: isModuleRegistered('InstantCheckoutModule')
       }
     },
-    closeMicrocartExtend () {
-      this.closeMicrocart()
-      this.$store.commit('ui/setSidebar', false)
-      this.addCouponPressed = false
+    props: {
+      isCheckoutMode: {
+        type: Boolean,
+        required: false,
+        default: () => false
+      }
     },
-    onEscapePress () {
-      this.closeMicrocart()
+    beforeCreate () {
+      registerModule(InstantCheckoutModule)
     },
-    clearCart () {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'warning',
-        message: i18n.t('Are you sure you would like to remove all the items from the shopping cart?'),
-        action1: { label: i18n.t('Cancel'), action: 'close' },
-        action2: { label: i18n.t('OK'),
-          action: async () => {
-            await this.$store.dispatch('cart/clear', { recreateAndSyncCart: false }) // just clear the items without sync
-            await this.$store.dispatch('cart/sync', { forceClientState: true })
-          }
-        },
-        hasNoTimeout: true
+    mounted () {
+      this.$nextTick(() => {
+        this.componentLoaded = true
       })
+    },
+    computed: {
+      ...mapGetters({
+        productsInCart: 'cart/getCartItems',
+        appliedCoupon: 'cart/getCoupon',
+        totals: 'cart/getTotals',
+        isOpen: 'cart/getIsMicroCartOpen'
+      })
+    },
+    methods: {
+      ...mapActions({
+        applyCoupon: 'cart/applyCoupon'
+      }),
+      addDiscountCoupon () {
+        this.addCouponPressed = true
+      },
+      clearCoupon () {
+        this.$store.dispatch('cart/removeCoupon')
+        this.addCouponPressed = false
+      },
+      toggleMicrocart () {
+        this.$store.dispatch('ui/toggleMicrocart')
+      },
+      async setCoupon () {
+        const couponApplied = await this.applyCoupon(this.couponCode)
+        this.addCouponPressed = false
+        this.couponCode = ''
+        if (!couponApplied) {
+          this.$store.dispatch('notification/spawnNotification', {
+            type: 'warning',
+            message: i18n.t("You've entered an incorrect coupon code. Please try again."),
+            action1: { label: i18n.t('OK') }
+          })
+        }
+      },
+      closeMicrocartExtend () {
+        this.toggleMicrocart()
+        this.$store.commit('ui/setSidebar', false)
+        this.addCouponPressed = false
+      },
+      onEscapePress () {
+        this.toggleMicrocart()
+      },
+      clearCart () {
+        this.$store.dispatch('notification/spawnNotification', {
+          type: 'warning',
+          message: i18n.t('Are you sure you would like to remove all the items from the shopping cart?'),
+          action1: { label: i18n.t('Cancel'), action: 'close' },
+          action2: { label: i18n.t('OK'),
+            action: async () => {
+              await this.$store.dispatch('cart/clear', { recreateAndSyncCart: false }) // just clear the items without sync
+              await this.$store.dispatch('cart/sync', { forceClientState: true })
+            }
+          },
+          hasNoTimeout: true
+        })
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -307,5 +330,23 @@ export default {
       margin-right: 20px;
       width: 100%;
     }
+  }
+
+  .overlay {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    background:rgba(0, 0, 0, 0.4);
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .4s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
 </style>
