@@ -97,5 +97,9 @@ export const createPrice = (product: ProductVariant | LineItem): AgnosticPrice =
 };
 
 export const createFormatPrice = (price: number) => {
+  if (!price) {
+    return null;
+  }
+  
   return new Intl.NumberFormat(`${locale}-${country}`, { style: 'currency', currency }).format(price);
 };

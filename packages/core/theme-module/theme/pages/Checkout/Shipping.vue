@@ -133,15 +133,7 @@ import {
 } from '@storefront-ui/vue';
 import { useCheckout, checkoutGetters } from '<%= options.composables %>';
 
-const COUNTRIES = [
-  { key: 'US',
-    label: 'United States' },
-  { key: 'UK',
-    label: 'United Kingdom' },
-  { key: 'IT',
-    label: 'Italy' },
-  { key: 'PL',
-    label: 'Poland' }
+const COUNTRIES = [{ label: 'United Kingdom' }
 ];
 
 export default {

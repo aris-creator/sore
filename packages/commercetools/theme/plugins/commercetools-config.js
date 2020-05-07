@@ -22,13 +22,7 @@ export const config = {
   country: 'US',
   countries: [
     { name: 'US',
-      label: 'United States' },
-    { name: 'AT',
-      label: 'Austria' },
-    { name: 'DE',
-      label: 'Germany' },
-    { name: 'NL',
-      label: 'Netherlands' }
+      label: 'United States' }
   ],
   currencies: [
     { name: 'EUR',
