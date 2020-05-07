@@ -43,9 +43,7 @@
             />
           </div>
           <p class="product-details__description desktop-only">
-            Find stunning women cocktail and party dresses. Stand out in lace
-            and metallic cocktail dresses and party dresses from all your
-            favorite brands.
+            {{ product ? product._description : '' }}
           </p>
           <div class="product-details__action desktop-only">
             <SfButton class="sf-button--text color-secondary"
