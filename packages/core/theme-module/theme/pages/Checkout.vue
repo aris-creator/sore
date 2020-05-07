@@ -28,7 +28,8 @@ import { SfSteps, SfButton } from '@storefront-ui/vue';
 import CartPreview from '~/components/checkout/CartPreview';
 import OrderReview from '~/components/checkout/OrderReview';
 import { ref } from '@vue/composition-api';
-
+import uiState from '~/assets/ui-state';
+const { isCartSidebarOpen, toggleCartSidebar } = uiState;
 const STEPS = [
   { name: 'personal-details',
     label: 'Personal Details' },
@@ -56,6 +57,9 @@ export default {
     const showCartPreview = ref(true);
     const currentStep = ref(0);
 
+    if (isCartSidebarOpen.value) {
+      toggleCartSidebar();
+    }
     const handleShowReview = () => {
       showCartPreview.value = false;
     };

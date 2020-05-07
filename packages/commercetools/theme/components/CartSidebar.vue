@@ -34,12 +34,6 @@
                 @click:remove="removeFromCart(product)"
                 class="collected-product"
               >
-               <template #configuration>
-                <div class="collected-product__properties">
-                  <SfProperty name="Size" :value="cartGetters.getItemAttributes(product).size"/>
-                  <SfProperty name="Color" :value="cartGetters.getItemAttributes(product).color"/>
-                </div>
-              </template>
               <template #actions>
                   <SfButton class="sf-button--text desktop-only">Save for later</SfButton>
               </template>

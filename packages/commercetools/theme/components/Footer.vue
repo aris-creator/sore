@@ -4,7 +4,9 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "~@storefront-ui/vue/styles";
+
 .footer {
   color: #909090;
   background: #f4f4f4;
@@ -14,5 +16,8 @@
   vertical-align: middle;
   margin-top: 20px;
   margin-bottom: 0;
+  @include for-mobile {
+    margin-bottom: 61px;
+  }
 }
 </style>

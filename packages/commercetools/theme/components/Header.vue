@@ -4,9 +4,6 @@
       <div class="header__logo">
         <nuxt-link to="/"><img class="header__logo" src="/logo.png" /></nuxt-link>
       </div>
-      <div class="header__logo-mobile">
-        <nuxt-link to="/"><img src="/logomini.png" /> </nuxt-link>
-      </div>
       <ul>
         <li><nuxt-link to="/">Home</nuxt-link></li>
         <li><a href="#">Browse</a></li>
@@ -25,7 +22,6 @@
           <font-awesome-icon :icon="['fas', 'shopping-cart']" />
         </button>
       </div>
-    <CartSidebar />
     </div>
     <div class="header__bottom">
       <input type="text" placeholder="Find products"/>
@@ -37,7 +33,6 @@
 import { useCart, cartGetters } from '@vue-storefront/commercetools';
 import uiState from '~/assets/ui-state';
 const { toggleCartSidebar } = uiState;
-import CartSidebar from '~/components/CartSidebar.vue';
 import { computed } from '@vue/composition-api';
 export default {
   setup () {
@@ -50,9 +45,6 @@ export default {
       cartGetters,
       totals
     };
-  },
-  components: {
-    CartSidebar
   }
 };
 </script>
@@ -72,6 +64,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
+    @include for-mobile {
+      justify-content: center;
+    }
   }
   &__bottom {
     @include for-desktop {
@@ -120,6 +115,9 @@ export default {
     }
   }
   &__links {
+    @include for-mobile {
+      display: none;
+    }
     margin: 0 -9px;
     display: flex;
     align-items: center;
@@ -157,18 +155,10 @@ export default {
     }
   }
   
-  &__logo {
-    @include for-mobile {
-      display: none
-    }
-  }
-  &__logo-mobile {
-    img {
-      width: 25px;
-      height: 30px;
-    }
-    @include for-desktop {
-      display: none
+  &__logo img {
+  @include for-mobile {
+      height: 27px;
+      width: 76px;
     }
   }
 }

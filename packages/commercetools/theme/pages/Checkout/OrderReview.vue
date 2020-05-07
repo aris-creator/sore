@@ -144,7 +144,7 @@
           <SfButton class="color-secondary summary__back-button">
             Go back
           </SfButton>
-          <SfButton class="summary__action-button" @click="$emit('nextStep')">
+          <SfButton class="summary__action-button" @click="processOrder()">
             Continue to shipping
           </SfButton>
         </div>

@@ -93,7 +93,7 @@
             />
           </div>
 
-          <SfTabs class="product-details__tabs" :openTab="2">
+          <!-- <SfTabs class="product-details__tabs" :openTab="2">
             <SfTab title="Description">
               <div>
                 <p>
@@ -137,7 +137,7 @@
                 with hair accessories in geo styles.
               </p>
             </SfTab>
-          </SfTabs>
+          </SfTabs> -->
         </SfSticky>
       </div>
     </div>
@@ -157,7 +157,7 @@ import {
   SfSelect,
   SfProductOption,
   SfAddToCart,
-  SfTabs,
+  // SfTabs,
   SfGallery,
   SfImage,
   SfBanner,
@@ -234,7 +234,7 @@ export default {
     SfSelect,
     SfProductOption,
     SfAddToCart,
-    SfTabs,
+    // SfTabs,
     SfGallery,
     SfImage,
     SfBanner,

@@ -3,17 +3,23 @@
     <AppHeader />
     <nuxt />
     <AppFooter />
+    <BottomNavigation />
+    <CartSidebar />
   </div>
 </template>
 
 <script>
 import AppHeader from '~/components/Header.vue';
 import AppFooter from '~/components/Footer.vue';
+import BottomNavigation from '~/components/BottomNavigation.vue';
+import CartSidebar from '~/components/CartSidebar.vue';
 
 export default {
   components: {
+    BottomNavigation,
     AppHeader,
-    AppFooter
+    AppFooter,
+    CartSidebar
   }
 };
 </script>
