@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 import { UseCheckout } from '@vue-storefront/core';
-import { placeOrder as processOrder, getShippingMethods } from '@vue-storefront/commercetools-api';
+import { placeOrder as processOrder, getShippingMethods, createCart } from '@vue-storefront/commercetools-api';
 import { ref, Ref, watch, computed } from '@vue/composition-api';
 import { cart } from './../useCart';
 import { ShippingMethod, AddressInput, Customer } from '@vue-storefront/commercetools-api/lib//types/GraphQL';
@@ -54,6 +54,9 @@ export default function useCheckout(): UseCheckout<any, any, any, any, any, any,
     };
 
     await processOrder(cart.value, orderData);
+
+    const cartResponse = await createCart();
+    cart.value = cartResponse.data.cart;
   };
 
   const loading = ref(true);
