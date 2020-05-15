@@ -21,6 +21,7 @@ module.exports = async function DefaultThemeModule(moduleOptions) {
   const projectLocalThemeDir = this.options.buildDir.replace('.nuxt', '.theme');
   const themeComponentsDir = path.join(this.options.rootDir, 'pages');
   const themePagesDir = path.join(this.options.rootDir, 'components');
+  const themeLayoutsDir = path.join(this.options.rootDir, 'layouts');
   const themeHelpersDir = path.join(this.options.rootDir, 'helpers');
   const themeFiles = getAllFilesFromDir(baseThemeDir).filter(file => !file.includes('/static/'));
 
@@ -41,7 +42,8 @@ module.exports = async function DefaultThemeModule(moduleOptions) {
   await Promise.all([
     copyThemeFiles(themeComponentsDir),
     copyThemeFiles(themePagesDir),
-    copyThemeFiles(themeHelpersDir)
+    copyThemeFiles(themeHelpersDir),
+    copyThemeFiles(themeLayoutsDir)
   ]);
 
   log.success(`Added ${themeFiles.length} theme file(s) to ${chalk.bold('.theme')} folder`);
@@ -139,7 +141,7 @@ module.exports = async function DefaultThemeModule(moduleOptions) {
       }
     });
 
-    chokidar.watch([themeComponentsDir, themePagesDir, themeHelpersDir], { ignoreInitial: true })
+    chokidar.watch([themeComponentsDir, themePagesDir, themeHelpersDir, themeLayoutsDir], { ignoreInitial: true })
       .on('all', (event, filePath) => {
         if (event === 'unlink') {
           const baseFilePath = filePath.replace(this.options.rootDir, baseThemeDir);

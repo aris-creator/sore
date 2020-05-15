@@ -78,6 +78,7 @@
       "packages/boilerplate/*",
       "packages/core/*",
       "packages/prismic",
+      "packages/storyblok",
       "packages/about-you/*"
     ],
     "nohoist": [
