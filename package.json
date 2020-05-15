@@ -22,6 +22,7 @@
     "build:ct:composables": "cd packages/commercetools/composables && yarn build",
     "build:ct:tools": "yarn build:core && yarn build:ct:api-client && yarn build:ct:composables",
     "build:ct:theme": "cd packages/commercetools/theme && yarn build",
+    "build:constructor-io": "cd packages/constructor-io && yarn build",
     "build:ct": "yarn build:core && yarn build:ct:tools && yarn build:ct:theme",
     "test:ayc:api-client": "cd packages/about-you/api-client && yarn test",
     "test:ayc:composables": "cd packages/about-you/composables && yarn test",
@@ -78,7 +79,8 @@
       "packages/boilerplate/*",
       "packages/core/*",
       "packages/prismic",
-      "packages/about-you/*"
+      "packages/about-you/*",
+      "packages/constructor-io"
     ],
     "nohoist": [
       "**/**/**"

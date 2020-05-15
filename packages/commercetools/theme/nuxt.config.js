@@ -27,7 +27,8 @@ export default {
   },
   loading: { color: '#fff' },
   plugins: [
-    './plugins/commercetools.js'
+    './plugins/commercetools.js',
+    './plugins/constructor-io.js'
   ],
   router: {
     middleware: ['commercetools', 'checkout']
@@ -39,10 +40,12 @@ export default {
       coreDevelopment: true,
       useRawSource: {
         dev: [
+          '@vue-storefront/constructor-io',
           '@vue-storefront/commercetools',
           '@vue-storefront/core'
         ],
         prod: [
+          '@vue-storefront/constructor-io',
           '@vue-storefront/commercetools',
           '@vue-storefront/core'
         ]
