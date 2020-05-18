@@ -6,7 +6,8 @@
     @click:account="onAccountClicked"
     :cartItemsQty="cartTotalItems"
     :accountIcon="accountIcon"
-    >
+    class="sf-header--has-mobile-search"
+  >
     <!-- TODO: add mobile view buttons after SFUI team PR -->
     <template #logo>
       <nuxt-link data-cy="app-header-url_logo" :to="localePath('/')" class="sf-header__logo">
@@ -30,6 +31,9 @@
         </nuxt-link>
       </SfHeaderNavigationItem>
     </template>
+    <template #aside>
+      <LocaleSelector class="mobile-only" />
+    </template>
   </SfHeader>
 </template>
 
@@ -38,16 +42,20 @@ import { SfHeader, SfImage } from '@storefront-ui/vue';
 import uiState from '~/assets/ui-state';
 import { useCart, useUser, cartGetters } from '<%= options.composables %>';
 import { computed } from '@vue/composition-api';
+import { onSSR } from '@vue-storefront/core';
+import LocaleSelector from './LocaleSelector';
+
 const { toggleCartSidebar, toggleLoginModal } = uiState;
 
 export default {
   components: {
     SfHeader,
-    SfImage
+    SfImage,
+    LocaleSelector
   },
   setup(props, { root }) {
     const { isAuthenticated } = useUser();
-    const { cart } = useCart();
+    const { cart, loadCart } = useCart();
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
       // TODO: remove once resolved by UI team: https://github.com/DivanteLtd/storefront-ui/issues/1061
@@ -59,6 +67,10 @@ export default {
     const onAccountClicked = () => {
       isAuthenticated && isAuthenticated.value ? root.$router.push('/my-account') : toggleLoginModal();
     };
+
+    onSSR(async () => {
+      await loadCart();
+    });
 
     return {
       accountIcon,
