@@ -45,8 +45,12 @@ export default {
     max-width: 1240px;
     margin: auto;
   }
+  letter-spacing: 0.1px;
 }
 :root {
  --c-primary: #eb5256 !important;
+ --font-family-primary: Montserrat, sans-serif !important;
+ --font-family-secondary: Montserrat, sans-serif !important;
+ --bg-secondary: #F1F2F3;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <StoreLocator />
     <component :is="c.component" v-for="c in story.content.body" :content="c" :key="c._uid"/>
     <SfBanner
       image="/homepage/bannerD.png"
@@ -47,10 +48,12 @@ import ProductCarousel from '~/components/storyblok/ProductCarousel.vue';
 import Photos from '~/components/storyblok/Photos.vue';
 import BannerGrid from '~/components/storyblok/BannerGrid.vue';
 import HeroSlider from '~/components/storyblok/HeroSlider.vue';
+import StoreLocator from '~/components/storyblok/StoreLocator/StoreLocator.vue';
 
 export default {
   name: 'Home',
   components: {
+    StoreLocator,
     BannerGrid,
     CallToAction,
     ProductCarousel,
