@@ -1,0 +1,23 @@
+{
+  "name": "@vue-storefront/storyblok",
+  "descrition": "Prismic headless CMS integration for Vue Next",
+  "private": true,
+  "main": "src/index.js",
+  "types": "lib/index.d.ts",
+  "version": "0.0.3",
+  "sideEffect": false,
+  "dependencies": {
+    "@storefront-ui/vue": "^0.7.10",
+    "storyblok-nuxt": "^1.2.0"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest"
+  },
+  "files": [
+    "lib/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

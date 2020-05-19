@@ -80,7 +80,8 @@
       "packages/core/*",
       "packages/prismic",
       "packages/about-you/*",
-      "packages/constructor-io"
+      "packages/constructor-io",
+      "packages/storyblok"
     ],
     "nohoist": [
       "**/**/**"
