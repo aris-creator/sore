@@ -237,7 +237,7 @@ selectPaymentMethod.value = CkoPaymentType.CREDIT_CARD
 ## Allowing user to decide whether save payment instrument or not
 `useCko` composable shares `savePaymentInstrument` ref and `setSavePaymentInstrument` method for that purpose. It is also being stored in the localStorage and autoloaded in `onMounted` hook. Remember to always use `setSavePaymentInstrument` after `savePaymentInstrument` update state in localStorage. E.g:
 ```js
-const {
+const { 
       initForm,
       loadAvailableMethods,
       submitCardForm,
