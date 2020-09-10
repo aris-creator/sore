@@ -21,6 +21,7 @@
     "access": "public"
   },
   "dependencies": {
+    "storyblok-nuxt": "^1.3.0",
     "lodash.merge": "^4.6.2"
   }
 }

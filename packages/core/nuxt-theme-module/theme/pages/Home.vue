@@ -1,57 +1,6 @@
 <template>
   <div id="home">
-    <SfHero class="section">
-      <SfHeroItem
-        v-for="(hero, i) in heroes"
-        :key="i"
-        :title="hero.title"
-        :subtitle="hero.subtitle"
-        :button-text="hero.buttonText"
-        :background="hero.background"
-        :image="hero.image"
-        :class="hero.className"
-      ></SfHeroItem>
-    </SfHero>
-    <SfBannerGrid :banner-grid="1" class="section banner-grid">
-      <template v-for="item in banners" v-slot:[item.slot]>
-        <SfBanner
-          :key="item.slot"
-          :title="item.title"
-          :subtitle="item.subtitle"
-          :description="item.description"
-          :button-text="item.buttonText"
-          :image="item.image"
-          :class="item.class"
-        />
-      </template>
-    </SfBannerGrid>
-    <SfCallToAction
-      title="Subscribe to Newsletters"
-      button-text="Subscribe"
-      description="Be aware of upcoming sales and events. Receive gifts and special offers!"
-      image="/homepage/newsletter.jpg"
-      class="call-to-action"
-    />
-    <SfSection title-heading="Best Sellers" class="section">
-      <SfCarousel class="product-carousel">
-        <SfCarouselItem v-for="(product, i) in products" :key="i">
-          <SfProductCard
-            data-cy="home-url_product"
-            :title="product.title"
-            :image="product.image"
-            :regular-price="product.price.regular"
-            :max-rating="product.rating.max"
-            :score-rating="product.rating.score"
-            :show-add-to-cart-button="true"
-            :is-on-wishlist="product.isOnWishlist"
-            link="/"
-            class="product-card"
-            @click:wishlist="toggleWishlist(i)"
-          />
-        </SfCarouselItem>
-      </SfCarousel>
-    </SfSection>
-    <InstagramFeed />
+    <component :is="c.component" v-for="c in story.content.body" :content="c" :key="c._uid"/>
   </div>
 </template>
 <script>
@@ -66,10 +15,18 @@ import {
   SfBannerGrid
 } from '@storefront-ui/vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
+import Hero from '~/components/storyblok/Hero.vue';
+import Banners from '~/components/storyblok/Banners.vue';
+import BestSellers from '~/components/storyblok/BestSellers.vue';
+import CallToCation from '~/components/storyblok/CallToCation.vue';
 
 export default {
   name: 'Home',
   components: {
+    Hero,
+    Banners,
+    BestSellers,
+    CallToCation,
     InstagramFeed,
     SfHero,
     SfBanner,
@@ -80,131 +37,30 @@ export default {
     SfImage,
     SfBannerGrid
   },
-  data() {
-    return {
-      heroes: [
-        {
-          title: 'Colorful summer dresses are already in store',
-          subtitle: 'SUMMER COLLECTION 2019',
-          buttonText: 'Learn more',
-          background: '#eceff1',
-          image: '/homepage/bannerH.jpg'
-        },
-        {
-          title: 'Colorful summer dresses are already in store',
-          subtitle: 'SUMMER COLLECTION 2019',
-          buttonText: 'Learn more',
-          background: '#efebe9',
-          image: '/homepage/bannerA.jpg',
-          className:
-            'sf-hero-item--position-bg-top-left sf-hero-item--align-right'
-        },
-        {
-          title: 'Colorful summer dresses are already in store',
-          subtitle: 'SUMMER COLLECTION 2019',
-          buttonText: 'Learn more',
-          background: '#fce4ec',
-          image: '/homepage/bannerB.jpg'
+  mounted () {
+    this.$storybridge.on(['input', 'published', 'change'], (event) => {
+      if (event.action === 'input') {
+        if (event.story.id === this.story.id) {
+          this.story.content = event.story.content;
         }
-      ],
-      banners: [
-        {
-          slot: 'banner-A',
-          subtitle: 'Dresses',
-          title: 'Cocktail & Party',
-          description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-          buttonText: 'Shop now',
-          image: {
-            mobile: '/homepage/bannerB.jpg',
-            desktop: '/homepage/bannerF.jpg'
-          },
-          class: 'sf-banner--slim'
-        },
-        {
-          slot: 'banner-B',
-          subtitle: 'Dresses',
-          title: 'Linen Dresses',
-          description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-          buttonText: 'Shop now',
-          image: '/homepage/bannerE.jpg',
-          class: 'sf-banner--slim banner-central'
-        },
-        {
-          slot: 'banner-C',
-          subtitle: 'T-Shirts',
-          title: 'The Office Life',
-          image: '/homepage/bannerC.jpg',
-          class: 'sf-banner--slim'
-        },
-        {
-          slot: 'banner-D',
-          subtitle: 'Summer Sandals',
-          title: 'Eco Sandals',
-          image: '/homepage/bannerG.jpg',
-          class: 'sf-banner--slim'
+      } else {
+        window.location.reload();
+      }
+    });
+  },
+  asyncData (context) {
+    return context.app.$storyapi.get('cdn/stories/home', {
+      version: 'draft'
+    }).then((res) => res.data)
+      .catch((res) => {
+        if (!res.response) {
+          console.error(res);
+          context.error({ statusCode: 404, message: 'Failed to receive content form api' });
+        } else {
+          console.error(res.response.data);
+          context.error({ statusCode: res.response.status, message: res.response.data });
         }
-      ],
-      products: [
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: true
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productC.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productC.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.jpg',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isOnWishlist: false
-        }
-      ]
-    };
+      });
   },
   methods: {
     toggleWishlist(index) {

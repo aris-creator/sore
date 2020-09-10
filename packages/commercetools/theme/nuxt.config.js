@@ -81,7 +81,11 @@ export default {
   modules: [
     'nuxt-i18n',
     'cookie-universal-nuxt',
-    'vue-scrollto/nuxt'
+    'vue-scrollto/nuxt',
+    ['storyblok-nuxt', {
+      accessToken: '0wvAfr4v5rQpQlIDQ8GsYQtt',
+      cacheProvider: 'memory'
+    }]
   ],
   i18n: {
     currency: 'USD',
