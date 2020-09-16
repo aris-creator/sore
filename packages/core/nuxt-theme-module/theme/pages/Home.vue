@@ -18,15 +18,17 @@ import InstagramFeed from '~/components/InstagramFeed.vue';
 import Hero from '~/components/storyblok/Hero.vue';
 import Banners from '~/components/storyblok/Banners.vue';
 import BestSellers from '~/components/storyblok/BestSellers.vue';
-import CallToCation from '~/components/storyblok/CallToCation.vue';
+import CallToAction from '~/components/storyblok/CallToAction.vue';
+import Banner from '~/components/storyblok/Banner.vue';
 
 export default {
   name: 'Home',
   components: {
+    Banner,
     Hero,
     Banners,
     BestSellers,
-    CallToCation,
+    CallToAction,
     InstagramFeed,
     SfHero,
     SfBanner,
@@ -69,8 +71,14 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~@storefront-ui/vue/styles";
+
+.banner {
+  margin-top: 60px;
+  background-color: lightgray;
+}
+
 #home {
   box-sizing: border-box;
   @include for-desktop {

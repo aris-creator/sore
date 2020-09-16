@@ -1,7 +1,7 @@
 <template>
   <SfCallToAction
     :title="content.title"
-    :button-text="content.button_text"
+    :button-text="content.buttonText"
     :description="content.description"
     image="/homepage/newsletter.jpg"
     class="call-to-action"
