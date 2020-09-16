@@ -52,6 +52,9 @@
       </SfCarousel>
     </SfSection>
     <InstagramFeed />
+    <FormBuilder :form="form" @submit="handleSubmit">
+
+    </FormBuilder>
   </div>
 </template>
 <script>
@@ -63,13 +66,20 @@ import {
   SfCarousel,
   SfProductCard,
   SfImage,
-  SfBannerGrid
+  SfBannerGrid,
+  SfInput
 } from '@storefront-ui/vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
+import { FormBuilder } from '@vue-storefront/core';
+
+const events = {
+  input: (val) => val
+};
 
 export default {
   name: 'Home',
   components: {
+    FormBuilder,
     InstagramFeed,
     SfHero,
     SfBanner,
@@ -78,10 +88,20 @@ export default {
     SfCarousel,
     SfProductCard,
     SfImage,
-    SfBannerGrid
+    SfBannerGrid,
+    SfInput
   },
   data() {
     return {
+      form: {
+        submit: { text: 'send form' },
+        fields: {
+          firstName: { label: 'First name', value: 'test', type: SfInput, events, validate: (val) => val.length > 4 ? 'text is too long' : false },
+          lastName: { label: 'Last name', value: '', type: SfInput, events },
+          email: { label: 'Email', value: '', type: SfInput, events },
+          city: { label: 'City', value: '', type: SfInput, events }
+        }
+      },
       heroes: [
         {
           title: 'Colorful summer dresses are already in store',
@@ -209,6 +229,9 @@ export default {
   methods: {
     toggleWishlist(index) {
       this.products[index].isOnWishlist = !this.products[index].isOnWishlist;
+    },
+    handleSubmit (v, isValid) {
+      console.log('SUBMIT', v, isValid);
     }
   }
 };

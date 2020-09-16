@@ -361,3 +361,16 @@ export enum AgnosticOrderStatus {
   Cancelled = 'Cancelled',
   Refunded = 'Refunded'
 }
+
+export interface AgnosticFormField {
+  name: string;
+  label: string;
+  value: any;
+  type: string;
+  group?: string;
+  onChange?: (value: any) => void;
+}
+
+export interface AgnosticForm {
+  fields: Record<string, AgnosticFormField>;
+}
