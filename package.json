@@ -59,6 +59,7 @@
     "dev:ct": "cd packages/commercetools/theme && yarn dev",
     "dev:sp:api-client": "cd packages/shopify/api-client && yarn dev",
     "dev:sp": "cd packages/shopify/theme && yarn dev",
+    "dev:core": "cd packages/core/core && yarn dev",
     "link-packages": "lerna link --force-local",
     "lint": "eslint . --ext .js,.ts,.vue",
     "release": "cd scripts && yarn release",
