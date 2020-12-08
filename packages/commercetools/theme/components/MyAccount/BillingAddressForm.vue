@@ -123,8 +123,7 @@
           <SfSelect
             data-cy="billing-details-select_country"
             class="form__select sf-select--underlined"
-            :value="form.country"
-            @selected="form.country = $event"
+            v-model="form.country"
             name="country"
             label="Country"
             required
@@ -173,7 +172,7 @@ import {
 import { required, min, oneOf } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { reactive } from '@vue/composition-api';
-import { useContext } from '@vue-storefront/core';
+import { useVSFContext } from '@vue-storefront/core';
 
 extend('required', {
   ...required,
@@ -226,7 +225,7 @@ export default {
   },
 
   setup(props, { emit }) {
-    const { $ct: { config } } = useContext();
+    const { $ct: { config } } = useVSFContext();
     const form = reactive({
       id: props.address.id,
       firstName: props.address.firstName,
