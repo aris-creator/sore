@@ -96,14 +96,44 @@
   - Choose from saved shipping addresses (logged in)
   - Add new shipping address (logged in)
   - Change default shipping address (logged in)
+  - Provide Shipping Details
+    - Fill in First and Last Name
+    - Fill in Street name and apartment number
+    - Fill in City and Zip Code
 - Payment
-- Review
-- Order summary
+  - Cash on Delivery
+  - Checkout.com
 - Coupons
+  - Add discount coupon
+- Order summary
+  - Display total price
+  - Display shipping price
+  - Display Tax
+- Thank you page
+  - Display order number
 
 ## User Profile
 
-
+- My Profile (Personal Details)
+  - Change First Name
+  - Change Last Name
+  - Change email
+  - Change password by using the old one and a new one
+- Shipping Details
+  - Delete Shipping Address
+  - Change Shipping Address
+  - Set Shipping Address as default
+- Billing Details
+  - Delete Billing Address
+  - Change Billing Address
+  - Set Billing Address as default
+- Order History
+  - See Order Status
+  - See Order Id
+  - See Order Price
+  - Download Orders
+  - 
+- Log Out
 # CMS
 
 # Cloud
