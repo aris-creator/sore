@@ -1,4 +1,3 @@
-// TODO proper bundling, for now it's just to experiment with nuxt modules api
 const fs = require('fs');
 const path = require('path');
 const log = require('./helpers/log');
@@ -6,6 +5,7 @@ const merge = require('./helpers/merge');
 const resolveDependency = require('./helpers/resolveDependency');
 const performanceModule = require('./modules/performance');
 const storefrontUiModule = require('./modules/storefront-ui');
+const coreDevelopmentModule = require('./modules/core-development');
 const rawSourcesModule = require('./modules/raw-sources-loader');
 
 module.exports = function VueStorefrontNuxtModule (moduleOptions) {
@@ -34,7 +34,7 @@ module.exports = function VueStorefrontNuxtModule (moduleOptions) {
     content: 'Vue Storefront 2'
   });
 
-  log.info('Starting Vue Storefront Nuxt Module');
+  log.info('Starting Nuxt Modules');
 
   // Enable HTTP/2 push for JS files
   if (options.performance.httpPush) {
@@ -52,27 +52,33 @@ module.exports = function VueStorefrontNuxtModule (moduleOptions) {
 
   // Context plugin
   this.addPlugin(path.resolve(__dirname, 'plugins/context.js'))
-  log.success('Installed Vue Storefront Context plugin');
+  log.success('Installed Context plugin');
 
   // SSR plugin
   this.addPlugin(path.resolve(__dirname, 'plugins/ssr.js'));
-  log.success('Installed Vue Storefront SSR plugin');
+  log.success('Installed SSR plugin');
 
   // Logger plugin
   this.addPlugin({
     src: path.resolve(__dirname, 'plugins/logger.js'),
     options: moduleOptions.logger || {}
   });
-  log.success('Installed VSF Logger plugin');
+  log.success('Installed Logger plugin');
 
   // Composition API plugin
   this.addModule('@nuxtjs/composition-api');
-  log.success('Installed nuxt Composition API Module');
+  log.success('Installed Nuxt Composition API Module');
 
   // StorefrontUI module
-  if (fs.existsSync(resolveDependency('@storefront-ui/vue'))) {
+  if (fs.existsSync(path.dirname(resolveDependency('@storefront-ui/vue')))) {
     storefrontUiModule.call(this, options);
     log.success('Installed StorefrontUI Module');
+  }
+
+  // Core development module
+  if (fs.existsSync(path.dirname(resolveDependency('@vue-storefront/nuxt-theme')))) {
+    coreDevelopmentModule.call(this, options);
+    log.success('Installed Core Development Module');
   }
 
   // Performance module

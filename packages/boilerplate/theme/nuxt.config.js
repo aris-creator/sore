@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 
 export default {
-  mode: 'universal',
   server: {
     port: 3000,
     host: '0.0.0.0'
@@ -39,7 +38,6 @@ export default {
   loading: { color: '#fff' },
   plugins: [],
   buildModules: [
-    // to core
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
     ['@vue-storefront/nuxt', {
@@ -57,19 +55,6 @@ export default {
         ]
       }
     }],
-    // @core-development-only-start
-    ['@vue-storefront/nuxt-theme', {
-      generate: {
-        replace: {
-          apiClient: '@vue-storefront/boilerplate-api',
-          composables: '@vue-storefront/boilerplate'
-        }
-      }
-    }],
-    // @core-development-only-end
-    /* project-only-start
-    ['@vue-storefront/nuxt-theme'],
-    project-only-end */
     ['@vue-storefront/boilerplate/nuxt', {}]
   ],
   modules: [
@@ -109,14 +94,5 @@ export default {
         })
       })
     ]
-  },
-  router: {
-    scrollBehavior (_to, _from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition;
-      } else {
-        return { x: 0, y: 0 };
-      }
-    }
   }
 };
