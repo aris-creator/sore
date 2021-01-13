@@ -112,4 +112,7 @@ export default {
   'login in to your account': 'login in to your account',
   'Create an account': 'Create an account',
   'Your bag is empty': 'Your bag is empty',
+  'There is already an existing customer with the email.': 'There is already an existing customer with the email.',
+  'Account with the given credentials not found.': 'Account with the given credentials not found.',
+  'Customer account with the given credentials not found.': 'Customer account with the given credentials not found.'
 };
