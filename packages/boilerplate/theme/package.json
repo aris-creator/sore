@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@vue-storefront/boilerplate": "0.0.1",
-    "@nuxtjs/style-resources": "^1.0.0"
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@vue-storefront/nuxt-theme": "^2.2.0"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^2.0.0",
