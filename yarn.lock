@@ -2969,12 +2969,51 @@
     graphql-tag "^2.10.1"
     isomorphic-fetch "^2.2.1"
 
+"@vue-storefront/commercetools-api@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/commercetools-api/-/commercetools-api-1.1.0.tgz#bc1118f1df2041e72b44e3b9ae55382ead36654f"
+  integrity sha512-qRueuNQegyKDS7eP+Xn9/Zf1dEO1Nnf2I02cDyTct8oxJ+FuyJeLuW9MHWyrSDSrYIaHORX2d0GiqaMXboNO4A==
+  dependencies:
+    "@apollo/client" "^3.2.9"
+    "@commercetools/sdk-auth" "^3.0.1"
+    "@vue-storefront/core" "^2.2.0"
+    apollo-cache-inmemory "^1.6.6"
+    apollo-client "^2.6.10"
+    apollo-link "^1.2.14"
+    apollo-link-context "^1.0.20"
+    apollo-link-error "^1.1.13"
+    apollo-link-http "^1.5.17"
+    apollo-link-retry "^2.2.16"
+    graphql "^14.5.8"
+    graphql-tag "^2.10.1"
+    isomorphic-fetch "^2.2.1"
+
+"@vue-storefront/commercetools@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/commercetools/-/commercetools-1.1.0.tgz#fd60f57ebbdb2c0b2aa3f5e8f19124ec4f78488b"
+  integrity sha512-oJ625zZwncrW40cm7MsGIuK3RU5oEXHMdB0/sl74ME4bVJuEextPJCe+fJR1prRQZQUvBjPugaE0YRoqu6nr0g==
+  dependencies:
+    "@vue-storefront/commercetools-api" "^1.1.0"
+    "@vue-storefront/core" "^2.2.0"
+    js-cookie "^2.2.1"
+    vue "^2.6.x"
+
 "@vue-storefront/core@2.0.8":
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/@vue-storefront/core/-/core-2.0.8.tgz#566e3d6f0f3324b8895656fb36e79d2c5606b551"
   integrity sha512-lMNU1zL7+Bi8bGvUeWVnUbTxxeT0GNBmJgNH4l5nYY0yAc3O6yRhgTI8H9OcZZtJAn6fFXqYjsgpG5RTkWqsFQ==
   dependencies:
     "@vue/composition-api" "1.0.0-beta.13"
+    lodash-es "^4.17.15"
+    vue "^2.6.11"
+
+"@vue-storefront/core@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/core/-/core-2.2.0.tgz#b90e0b9c38d89608daa56e47a3151ddc39beee27"
+  integrity sha512-S6R8DHs4hQ4g5ZvtoFw+bT0xSJ5pM58JXd48sPYHU2QIzDmeCCBJ4YN7uQoG8H5/mkVwHIPaygJwZoc89VDMrg==
+  dependencies:
+    "@vue/composition-api" "1.0.0-beta.21"
+    express "^4.17.1"
     lodash-es "^4.17.15"
     vue "^2.6.11"
 

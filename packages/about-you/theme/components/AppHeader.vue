@@ -57,7 +57,7 @@ export default {
     LocaleSelector
   },
   setup() {
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
+    const { toggleCartSidebar, toggleWishlistSidebar, toggleAuthModal } = useUiState();
     const { cart, loadCart } = useCart();
     const { loadWishlist } = useWishlist();
     const { search, searchResults } = useSearch();
@@ -97,7 +97,7 @@ export default {
       searchResults,
       showSearchResults,
       toggleCartSidebar,
-      toggleLoginModal,
+      toggleAuthModal,
       toggleWishlistSidebar,
       onSearchQueryChanged
     };

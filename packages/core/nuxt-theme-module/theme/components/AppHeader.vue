@@ -75,7 +75,7 @@ export default {
     SfBadge
   },
   setup(props, { root }) {
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
+    const { toggleCartSidebar, toggleWishlistSidebar, toggleAuthModal } = useUiState();
     const { changeSearchTerm, getFacetsFromURL } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
     const { cart, load: loadCart } = useCart();
@@ -95,7 +95,7 @@ export default {
         return root.$router.push('/my-account');
       }
 
-      toggleLoginModal();
+      toggleAuthModal();
     };
 
     onSSR(async () => {

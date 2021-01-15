@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="log-in desktop-only">
-      <SfButton class="log-in__button color-secondary" @click="toggleLoginModal">
+      <SfButton class="log-in__button color-secondary" @click="toggleAuthModal">
         {{ $t('Log into your account') }}
       </SfButton>
       <p class="log-in__info">{{ $t('or fill the details below') }}:</p>
@@ -131,7 +131,7 @@ export default {
     ValidationProvider
   },
   setup(props, context) {
-    const { toggleLoginModal } = useUiState();
+    const { toggleAuthModal } = useUiState();
     const { register, isAuthenticated } = useUser();
     const { loadDetails, personalDetails, setPersonalDetails, loading } = useCheckout();
     const accountBenefits = ref(false);
@@ -160,7 +160,7 @@ export default {
       createAccount,
       setPersonalDetails,
       handleFormSubmit,
-      toggleLoginModal,
+      toggleAuthModal,
       characteristics: [
         { description: 'Faster checkout',
           icon: 'clock' },
