@@ -187,7 +187,7 @@ import {
   SfCheckbox
 } from '@storefront-ui/vue';
 import { ref, computed, onMounted } from '@vue/composition-api';
-import { useCheckout, useUser, userBillingGetters, useUserBilling } from '@vue-storefront/commercetools';
+import { useCheckout, useUser, userBillingGetters, useUserBilling } from '<%= options.generate.replace.composables %>';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min } from 'vee-validate/dist/rules';
 import { onSSR } from '@vue-storefront/core';

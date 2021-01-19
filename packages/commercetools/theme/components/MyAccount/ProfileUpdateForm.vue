@@ -45,7 +45,7 @@
 <script>
 import { ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
-import { useUser, userGetters } from '@vue-storefront/commercetools';
+import { useUser, userGetters } from '<%= options.generate.replace.composables %>';
 import { SfInput, SfButton } from '@storefront-ui/vue';
 
 export default {

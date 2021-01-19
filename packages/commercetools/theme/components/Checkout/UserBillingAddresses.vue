@@ -42,7 +42,7 @@ import {
   SfCheckbox,
   SfAddressPicker
 } from '@storefront-ui/vue';
-import { userBillingGetters } from '@vue-storefront/commercetools';
+import { userBillingGetters } from '<%= options.generate.replace.composables %>';
 
 export default {
   name: 'UserBillingAddresses',

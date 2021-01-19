@@ -187,7 +187,7 @@ import {
   SfRadio,
   SfCheckbox
 } from '@storefront-ui/vue';
-import { useCheckout, useUserShipping, useUser, checkoutGetters, userShippingGetters } from '@vue-storefront/commercetools';
+import { useCheckout, useUserShipping, useUser, checkoutGetters, userShippingGetters } from '<%= options.generate.replace.composables %>';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { onSSR, useVSFContext } from '@vue-storefront/core';

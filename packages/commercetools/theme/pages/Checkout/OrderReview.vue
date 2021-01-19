@@ -165,7 +165,7 @@ import {
   SfLink
 } from '@storefront-ui/vue';
 import { ref, computed } from '@vue/composition-api';
-import { useCheckout, useCart, cartGetters, checkoutGetters } from '@vue-storefront/commercetools';
+import { useCheckout, useCart, cartGetters, checkoutGetters } from '<%= options.generate.replace.composables %>';
 import { onSSR } from '@vue-storefront/core';
 
 export default {
