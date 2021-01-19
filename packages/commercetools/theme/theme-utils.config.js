@@ -23,7 +23,16 @@ module.exports = {
           '_theme/**',
           'package.json'
         ],
-        variables: {},
+        variables: {
+          options: {
+            generate: {
+              replace: {
+                apiClient: '@vue-storefront/commercetools-api',
+                composables: '@vue-storefront/commercetools'
+              }
+            }
+          }
+        },
         watch: true
       }
     ]
