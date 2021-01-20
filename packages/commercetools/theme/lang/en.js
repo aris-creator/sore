@@ -112,4 +112,6 @@ export default {
   'login in to your account': 'login in to your account',
   'Create an account': 'Create an account',
   'Your bag is empty': 'Your bag is empty',
+  'Go to Checkout': 'Go to Checkout',
+  'Successfully added {PRODUCT_NAME} to the cart': 'Successfully added {PRODUCT_NAME} to the cart'
 };

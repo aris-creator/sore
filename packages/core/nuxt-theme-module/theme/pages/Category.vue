@@ -174,7 +174,7 @@
               :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
               class="products__product-card"
               @click:wishlist="addItemToWishlist({ product })"
-              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+              @click:add-to-cart="handleAddItemToCart(product, 1)"
             />
           </transition-group>
           <transition-group
@@ -199,7 +199,7 @@
               :is-on-wishlist="false"
               class="products__product-card-horizontal"
               @click:wishlist="addItemToWishlist({ product })"
-              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+              @click:add-to-cart="handleAddItemToCart(product, 1)"
               :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
             >
               <template #configuration>
@@ -361,8 +361,8 @@ import {
   SfProperty
 } from '@storefront-ui/vue';
 import { ref, computed, onMounted } from '@vue/composition-api';
-import { useCart, useWishlist, productGetters, useFacet, facetGetters } from '<%= options.generate.replace.composables %>';
-import { useUiHelpers, useUiState } from '~/composables';
+import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser } from '<%= options.generate.replace.composables %>';
+import { useUiHelpers, useUiState, useUiNotification } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import Vue from 'vue';
@@ -373,9 +373,12 @@ export default {
   setup(props, context) {
     const th = useUiHelpers();
     const uiState = useUiState();
-    const { addItem: addItemToCart, isOnCart } = useCart();
+    const { send } = useUiNotification();
+    const { isAuthenticated } = useUser();
+    const { addItem: addItemToCart, isOnCart, error } = useCart();
     const { addItem: addItemToWishlist } = useWishlist();
     const { result, search, loading } = useFacet();
+    const { $router, $i18n } = context.root;
 
     const products = computed(() => facetGetters.getProducts(result.value));
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
@@ -440,6 +443,26 @@ export default {
       changeFilters(selectedFilters.value);
     };
 
+    const handleAddItemToCart = async (product, quantity) => {
+      await addItemToCart({ product, quantity });
+      if (error.value.addItem) {
+        send({
+          type: 'danger',
+          message: error.value.addItem.message
+        });
+      } else {
+        send({
+          type: 'success',
+          message: $i18n.t('Successfully added {PRODUCT_NAME} to the cart', { PRODUCT_NAME: product._name }),
+          persist: true,
+          action: {
+            text: $i18n.t('Go to Checkout'),
+            onClick: () => $router.push(`/checkout/${isAuthenticated.value ? 'shipping' : 'personal-details'}`)
+          }
+        });
+      }
+    };
+
     return {
       ...uiState,
       th,
@@ -460,7 +483,8 @@ export default {
       isFilterSelected,
       selectedFilters,
       clearFilters,
-      applyFilters
+      applyFilters,
+      handleAddItemToCart
     };
   },
   components: {
