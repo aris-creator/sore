@@ -83,7 +83,7 @@
             :disabled="loading"
             :canAddToCart="stock > 0"
             class="product__add-to-cart"
-            @click="handleAddItemToCart(product, parseInt(qty))"
+            @click="addToCart(product, parseInt(qty))"
           />
         </div>
 
@@ -188,7 +188,7 @@ import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed } from '@vue/composition-api';
 import { useProduct, useCart, useUser, productGetters, useReview, reviewGetters } from '<%= options.generate.replace.composables %>';
-import { useUiNotification } from '~/composables';
+import sendNotification from '~/assets/notifications';
 import { onSSR } from '@vue-storefront/core';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -203,7 +203,6 @@ export default {
     const { products: relatedProducts, search: searchRelatedProducts, loading: relatedLoading } = useProduct('relatedProducts');
     const { addItem, loading, error } = useCart();
     const { isAuthenticated } = useUser();
-    const { send } = useUiNotification();
     const { $router, $i18n } = context.root;
     const { reviews: productReviews, search: searchReviews } = useReview('productReviews');
 
@@ -238,24 +237,14 @@ export default {
       });
     };
 
-    const handleAddItemToCart = async (product, quantity) => {
+    const addToCart = async (product, quantity) => {
       await addItem({ product, quantity });
-      if (error.value.addItem) {
-        send({
-          type: 'danger',
-          message: error.value.addItem.message
-        });
-      } else {
-        send({
-          type: 'success',
-          message: $i18n.t('Successfully added {PRODUCT_NAME} to the cart', { PRODUCT_NAME: product._name }),
-          persist: true,
-          action: {
-            text: $i18n.t('Go to Checkout'),
-            onClick: () => $router.push(`/checkout/${isAuthenticated.value ? 'shipping' : 'personal-details'}`)
-          }
-        });
-      }
+      sendNotification.cart.addItem({
+        productName: product._name,
+        error: error.value.addItem ? error.value.addItem.message : false,
+        onClick: () => $router.push(`/checkout/${isAuthenticated.value ? 'shipping' : 'personal-details'}`),
+        $i18n
+      });
     };
 
     return {
@@ -270,7 +259,7 @@ export default {
       relatedLoading,
       options,
       qty,
-      handleAddItemToCart,
+      addToCart,
       loading,
       productGetters,
       productGallery

@@ -174,7 +174,7 @@
               :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
               class="products__product-card"
               @click:wishlist="addItemToWishlist({ product })"
-              @click:add-to-cart="handleAddItemToCart(product, 1)"
+              @click:add-to-cart="addToCart(product, 1)"
             />
           </transition-group>
           <transition-group
@@ -199,7 +199,7 @@
               :is-on-wishlist="false"
               class="products__product-card-horizontal"
               @click:wishlist="addItemToWishlist({ product })"
-              @click:add-to-cart="handleAddItemToCart(product, 1)"
+              @click:add-to-cart="addToCart(product, 1)"
               :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
             >
               <template #configuration>
@@ -362,7 +362,8 @@ import {
 } from '@storefront-ui/vue';
 import { ref, computed, onMounted } from '@vue/composition-api';
 import { useCart, useWishlist, productGetters, useFacet, facetGetters, useUser } from '<%= options.generate.replace.composables %>';
-import { useUiHelpers, useUiState, useUiNotification } from '~/composables';
+import { useUiHelpers, useUiState } from '~/composables';
+import sendNotification from '~/assets/notifications';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import Vue from 'vue';
@@ -373,7 +374,6 @@ export default {
   setup(props, context) {
     const th = useUiHelpers();
     const uiState = useUiState();
-    const { send } = useUiNotification();
     const { isAuthenticated } = useUser();
     const { addItem: addItemToCart, isOnCart, error } = useCart();
     const { addItem: addItemToWishlist } = useWishlist();
@@ -443,24 +443,14 @@ export default {
       changeFilters(selectedFilters.value);
     };
 
-    const handleAddItemToCart = async (product, quantity) => {
+    const addToCart = async (product, quantity) => {
       await addItemToCart({ product, quantity });
-      if (error.value.addItem) {
-        send({
-          type: 'danger',
-          message: error.value.addItem.message
-        });
-      } else {
-        send({
-          type: 'success',
-          message: $i18n.t('Successfully added {PRODUCT_NAME} to the cart', { PRODUCT_NAME: product._name }),
-          persist: true,
-          action: {
-            text: $i18n.t('Go to Checkout'),
-            onClick: () => $router.push(`/checkout/${isAuthenticated.value ? 'shipping' : 'personal-details'}`)
-          }
-        });
-      }
+      sendNotification.cart.addItem({
+        productName: product._name,
+        error: error.value.addItem ? error.value.addItem.message : false,
+        onClick: () => $router.push(`/checkout/${isAuthenticated.value ? 'shipping' : 'personal-details'}`),
+        $i18n
+      });
     };
 
     return {
@@ -484,7 +474,7 @@ export default {
       selectedFilters,
       clearFilters,
       applyFilters,
-      handleAddItemToCart
+      addToCart
     };
   },
   components: {
