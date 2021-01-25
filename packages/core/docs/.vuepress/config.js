@@ -44,6 +44,7 @@ module.exports = {
 						['/commercetools/authorization-strategy', 'Authorization Strategy'],
 						['https://www.notion.so/vuestorefront/6017d5a553904d0bbdcdf0f37d388c2b?v=a618b57067f34e68944145ade66da3a3', 'Feature list'],
 						['/commercetools/maintainers', 'Maintainers and support'],
+						['/commercetools/api-client-reference/api-client-reference', 'API Reference'],
 						['/commercetools/changelog', 'Changelog']
 					]
 				},
