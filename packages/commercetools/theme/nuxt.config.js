@@ -84,7 +84,15 @@ export default {
   modules: [
     'nuxt-i18n',
     'cookie-universal-nuxt',
-    'vue-scrollto/nuxt'
+    'vue-scrollto/nuxt',
+    ['@vue-storefront/middleware/nuxt', {
+      integrations: {
+        ct: {
+          api: '@vue-storefront/commercetools-api/server',
+          module: '@vue-storefront/commercetools/nuxt'
+        }
+      }
+    }]
   ],
   i18n: {
     currency: 'USD',

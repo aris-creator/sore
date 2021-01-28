@@ -42,18 +42,6 @@
                     />
                   </div>
                 </template>
-                <template #actions>
-                  <div class="desktop-only collected-product__actions">
-                    <SfButton class="sf-button--text collected-product__save">
-                      {{ $t('Save for later') }}
-                    </SfButton>
-                    <SfButton
-                      class="sf-button--text collected-product__compare"
-                    >
-                      {{ $t('Add to compare') }}
-                    </SfButton>
-                  </div>
-                </template>
               </SfCollectedProduct>
             </transition-group>
           </div>
@@ -87,9 +75,9 @@
               </template>
             </SfProperty>
             <nuxt-link :to="`/checkout/${isAuthenticated ? 'shipping' : 'personal-details'}`">
-            <SfButton
-              class="sf-button--full-width color-secondary"
-              @click="toggleCartSidebar"
+              <SfButton
+                class="sf-button--full-width color-secondary"
+                @click="toggleCartSidebar"
               >
                 {{ $t('Go to checkout') }}
               </SfButton>
@@ -99,7 +87,7 @@
             <SfButton
               class="sf-button--full-width color-primary"
               @click="toggleCartSidebar"
-              >{{ $t('Go back shopping') }}</SfButton
+            >{{ $t('Go back shopping') }}</SfButton
             >
           </div>
         </transition>
