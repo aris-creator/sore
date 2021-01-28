@@ -53,7 +53,6 @@ Uncaught Error: [vue-composition-api] must call Vue.use(plugin) before using any
 {
   ['@vue-storefront/some-new-integration/nuxt', {}], // 2
   ['@vue-storefront/nuxt', {
-    coreDevelopment: true,
     useRawSource: {
       dev: [
         '@vue-storefront/core'

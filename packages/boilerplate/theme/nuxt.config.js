@@ -41,9 +41,6 @@ export default {
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
     ['@vue-storefront/nuxt', {
-      // @core-development-only-start
-      coreDevelopment: true,
-      // @core-development-only-end
       useRawSource: {
         dev: [
           '@vue-storefront/boilerplate',

@@ -62,7 +62,6 @@ If you are using our nuxt module, setting up the logger is much simpler. All you
 
 ```json
 ['@vue-storefront/nuxt', {
-  coreDevelopment: true,
   logger: { // new section here
     verbosity: 'error' // verbosity
     customLogger: logger // your own implementation as function

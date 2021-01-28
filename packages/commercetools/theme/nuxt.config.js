@@ -45,9 +45,6 @@ export default {
     '@nuxtjs/style-resources',
     '@nuxtjs/pwa',
     ['@vue-storefront/nuxt', {
-      // @core-development-only-start
-      coreDevelopment: true,
-      // @core-development-only-end
       useRawSource: {
         dev: [
           '@vue-storefront/commercetools',

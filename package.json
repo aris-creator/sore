@@ -48,7 +48,7 @@
     "dev:ct:api-client": "cd packages/commercetools/api-client && yarn dev",
     "dev:ct:composables": "cd packages/commercetools/composables && yarn dev",
     "dev:ayc": "cd packages/about-you/theme && yarn dev",
-    "dev:ct": "cd packages/commercetools/theme && yarn dev",
+    "dev:ct": "cd packages/commercetools/theme && concurrently \"vsf-tu\" \"wait-on _theme/package.json && cd _theme && yarn dev\"",
     "link-packages": "lerna link --force-local",
     "lint": "eslint . --ext .js,.ts,.vue",
     "release": "cd scripts && yarn release",
@@ -63,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "@vue/eslint-config-typescript": "^5.0.1",
+    "concurrently": "^5.3.0",
     "cross-env": "^6.0.3",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
@@ -84,6 +85,7 @@
     "tslib": "^1.10.0",
     "typescript": "^3.6.4",
     "vue-eslint-parser": "^7.0.0",
+    "wait-on": "^5.2.1",
     "webpack-bundle-analyzer": "^3.5.2"
   },
   "workspaces": {

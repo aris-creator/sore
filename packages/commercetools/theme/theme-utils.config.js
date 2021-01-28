@@ -20,8 +20,7 @@ module.exports = {
       {
         path: '.',
         ignore: [
-          '_theme/**',
-          'package.json'
+          '_theme/**'
         ],
         variables: {
           options: {
