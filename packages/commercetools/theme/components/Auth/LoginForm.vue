@@ -1,6 +1,10 @@
 <template>
   <div class='login-form'>
     <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
+      <SfAlert
+        v-if="serverError && serverError.fieldName === null"
+        type="danger"
+        :message="serverError && $t(serverError.displayMessage)" />
       <form class="form" @submit.prevent="handleSubmit(handleLogin)">
         <ValidationProvider rules="required|email" v-slot="{ errors }">
           <SfInput
@@ -32,7 +36,8 @@
           label="Remember me"
           class="form__element checkbox"
         />
-        <SfButton data-cy="login-btn_submit"
+        <SfButton
+          data-cy="login-btn_submit"
           type="submit"
           class="sf-button--full-width form__button"
           :disabled="loading"
@@ -59,11 +64,12 @@
 
 <script>
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
-import { SfButton, SfCheckbox, SfInput, SfLoader } from '@storefront-ui/vue';
+import { SfAlert, SfButton, SfCheckbox, SfInput, SfLoader } from '@storefront-ui/vue';
 import { email, required } from 'vee-validate/dist/rules';
 import { ref } from '@vue/composition-api';
-import { useUser } from '<%= options.generate.replace.composables %>';
+import { useUser } from '@vue-storefront/commercetools';
 import { useUiState, useUiNotification } from '~/composables';
+import { getFriendlyError } from '~/helpers/errors';
 
 extend('email', {
   ...email,
@@ -80,6 +86,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
+    SfAlert,
     SfButton,
     SfCheckbox,
     SfInput,
@@ -89,6 +96,7 @@ export default {
     const { login, loading, error } = useUser();
     const { isAuthModalOpen, toggleAuthModal, switchAuthModal } = useUiState();
     const { send } = useUiNotification();
+    const serverError = ref({});
     const rememberMe = ref(false);
     const form = ref({});
     const { $i18n } = context.root;
@@ -104,6 +112,7 @@ export default {
         return;
       }
 
+      serverError.value = getFriendlyError(currErr.message);
       send({
         type: 'danger',
         message: $i18n.t('Something went wrong!')
@@ -118,6 +127,7 @@ export default {
     const handleLogin = async () => handleForm(login)();
 
     return {
+      serverError,
       rememberMe,
       loading,
       error,

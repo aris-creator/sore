@@ -1,17 +1,13 @@
 <template>
   <div class="register-form form">
     <ValidationObserver v-slot="{ handleSubmit }" key="sign-up">
-      <SfAlert
-        v-if="serverError && serverError.fieldName === null"
-        type="danger"
-        :message="serverError && serverError.displayMessage" />
       <form class="form" @submit.prevent="handleSubmit(handleRegister)" autocomplete="off">
         <ValidationProvider rules="required|email" v-slot="{ errors }">
           <SfInput
             data-cy="login-input_email"
             v-model="form.email"
-            :valid="serverError && serverError.fieldName === 'email' ? false : !errors[0]"
-            :errorMessage="serverError && serverError.fieldName === 'email' ? serverError.displayMessage : errors[0]"
+            :valid="!errors[0]"
+            :errorMessage="errors[0]"
             name="email"
             label="Your email"
             class="form__element"
@@ -84,12 +80,11 @@
 
 <script>
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
-import { SfAlert, SfButton, SfCheckbox, SfInput, SfLoader } from '@storefront-ui/vue';
+import { SfButton, SfCheckbox, SfInput, SfLoader } from '@storefront-ui/vue';
 import { email, required } from 'vee-validate/dist/rules';
 import { ref } from '@vue/composition-api';
 import { useUser } from '<%= options.generate.replace.composables %>';
 import { useUiState, useUiNotification } from '~/composables';
-import { authErrors } from '~/helpers/errors';
 
 extend('email', {
   ...email,
@@ -106,7 +101,6 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
-    SfAlert,
     SfButton,
     SfCheckbox,
     SfInput,
@@ -116,12 +110,11 @@ export default {
     const { register, loading, error } = useUser();
     const { toggleAuthModal, switchAuthModal } = useUiState();
     const { send } = useUiNotification();
-    const serverError = ref({});
     const form = ref({});
     const createAccount = ref(false);
     const { $i18n } = context.root;
 
-    const handleError = ({ email }) => {
+    const handleError = () => {
       const currErr = error.value.register;
       if (!currErr) {
         send({
@@ -132,8 +125,6 @@ export default {
         return;
       }
 
-      const knownErrors = authErrors(context, email);
-      serverError.value = knownErrors.find(knownError => knownError.originalMessage === currErr.message);
       send({
         type: 'danger',
         message: $i18n.t('Something went wrong!')
@@ -148,7 +139,6 @@ export default {
     const handleRegister = async () => handleForm(register)();
 
     return {
-      serverError,
       loading,
       error,
       form,

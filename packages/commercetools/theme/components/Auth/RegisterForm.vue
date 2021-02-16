@@ -1,15 +1,41 @@
 <template>
-  <div class='login-form'>
-    <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-      <form class="form" @submit.prevent="handleSubmit(handleLogin)">
+  <div class="register-form form">
+    <ValidationObserver v-slot="{ handleSubmit }" key="sign-up">
+      <SfAlert
+        v-if="serverError && serverError.fieldName === null"
+        type="danger"
+        :message="serverError && $t(serverError.displayMessage)" />
+      <form class="form" @submit.prevent="handleSubmit(handleRegister)" autocomplete="off">
         <ValidationProvider rules="required|email" v-slot="{ errors }">
           <SfInput
             data-cy="login-input_email"
-            v-model="form.username"
-            :valid="!errors[0]"
-            :errorMessage="errors[0]"
+            v-model="form.email"
+            :valid="serverError && serverError.fieldName === 'email' ? false : !errors[0]"
+            :errorMessage="serverError && serverError.fieldName === 'email' ? $t(serverError.displayMessage) : errors[0]"
             name="email"
             label="Your email"
+            class="form__element"
+          />
+        </ValidationProvider>
+        <ValidationProvider rules="required" v-slot="{ errors }">
+          <SfInput
+            data-cy="login-input_firstName"
+            v-model="form.firstName"
+            :valid="!errors[0]"
+            :errorMessage="errors[0]"
+            name="first-name"
+            label="First Name"
+            class="form__element"
+          />
+        </ValidationProvider>
+        <ValidationProvider rules="required" v-slot="{ errors }">
+          <SfInput
+            data-cy="login-input_lastName"
+            v-model="form.lastName"
+            :valid="!errors[0]"
+            :errorMessage="errors[0]"
+            name="last-name"
+            label="Last Name"
             class="form__element"
           />
         </ValidationProvider>
@@ -25,33 +51,32 @@
             class="form__element"
           />
         </ValidationProvider>
-        <SfCheckbox
-          data-cy="login-checkbox-remember-me"
-          v-model="rememberMe"
-          name="remember-me"
-          label="Remember me"
-          class="form__element checkbox"
-        />
-        <SfButton data-cy="login-btn_submit"
+        <ValidationProvider :rules="{ required: { allowFalse: false } }" v-slot="{ errors }">
+          <SfCheckbox
+            v-model="createAccount"
+            :valid="!errors[0]"
+            :errorMessage="errors[0]"
+            name="create-account"
+            label="I want to create an account"
+            class="form__element"
+          />
+        </ValidationProvider>
+        <SfButton
+          data-cy="login-btn_submit"
           type="submit"
           class="sf-button--full-width form__button"
           :disabled="loading"
         >
           <SfLoader :class="{ loader: loading }" :loading="loading">
-            <div>{{ $t('Login') }}</div>
+            <div>{{ $t('Create an account') }}</div>
           </SfLoader>
         </SfButton>
       </form>
     </ValidationObserver>
     <div class="action">
-      <SfButton data-cy="login-btn_forgot-password" class="sf-button--text">
-        {{ $t('Forgotten password?') }}
-      </SfButton>
-    </div>
-    <div class="bottom">
-      <p class="bottom__paragraph">{{ $t('No account') }}</p>
-      <SfButton data-cy="login-btn_sign-up" class="sf-button--text" @click="switchAuthModal('register')">
-        {{ $t('Register today') }}
+      {{ $t('or') }}
+      <SfButton data-cy="login-btn_login-into-account" class="sf-button--text" @click="switchAuthModal('login')">
+        {{ $t('login in to your account') }}
       </SfButton>
     </div>
   </div>
@@ -59,11 +84,12 @@
 
 <script>
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
-import { SfButton, SfCheckbox, SfInput, SfLoader } from '@storefront-ui/vue';
+import { SfAlert, SfButton, SfCheckbox, SfInput, SfLoader } from '@storefront-ui/vue';
 import { email, required } from 'vee-validate/dist/rules';
 import { ref } from '@vue/composition-api';
-import { useUser } from '<%= options.generate.replace.composables %>';
+import { useUser } from '@vue-storefront/commercetools';
 import { useUiState, useUiNotification } from '~/composables';
+import { getFriendlyError } from '~/helpers/errors';
 
 extend('email', {
   ...email,
@@ -76,34 +102,37 @@ extend('required', {
 });
 
 export default {
-  name: 'LoginForm',
+  name: 'RegisterForm',
   components: {
     ValidationProvider,
     ValidationObserver,
+    SfAlert,
     SfButton,
     SfCheckbox,
     SfInput,
     SfLoader
   },
   setup(_, context) {
-    const { login, loading, error } = useUser();
-    const { isAuthModalOpen, toggleAuthModal, switchAuthModal } = useUiState();
+    const { register, loading, error } = useUser();
+    const { toggleAuthModal, switchAuthModal } = useUiState();
     const { send } = useUiNotification();
-    const rememberMe = ref(false);
+    const serverError = ref({});
     const form = ref({});
+    const createAccount = ref(false);
     const { $i18n } = context.root;
 
-    const handleError = () => {
-      const currErr = error.value.login;
+    const handleError = ({ email }) => {
+      const currErr = error.value.register;
       if (!currErr) {
         send({
           type: 'success',
-          message: $i18n.t('Successfully logged in')
+          message: $i18n.t('Successfully created a new account')
         });
         toggleAuthModal();
         return;
       }
 
+      serverError.value = getFriendlyError(currErr.message, email);
       send({
         type: 'danger',
         message: $i18n.t('Something went wrong!')
@@ -112,20 +141,19 @@ export default {
 
     const handleForm = (fn) => async () => {
       await fn({ user: form.value });
-      handleError();
+      handleError(form.value);
     };
 
-    const handleLogin = async () => handleForm(login)();
+    const handleRegister = async () => handleForm(register)();
 
     return {
-      rememberMe,
+      serverError,
       loading,
       error,
       form,
-      handleLogin,
+      createAccount,
       switchAuthModal,
-      isAuthModalOpen,
-      toggleAuthModal
+      handleRegister
     };
   }
 };
