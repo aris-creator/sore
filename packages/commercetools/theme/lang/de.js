@@ -112,7 +112,7 @@ export default {
   'login in to your account': 'Anmelden bei Ihrem Konto',
   'Create an account': 'Konto erstellen',
   'Your bag is empty': 'Ihre Tasche ist leer',
-  'There is already an existing customer with this email.': 'Es gibt bereits einen Kunden mit dieser E-Mail.',
+  'There is already an existing customer with this email': 'Es gibt bereits einen Kunden mit dieser E-Mail',
   'Account with the given credentials not found.': 'Konto mit den angegebenen Anmeldeinformationen nicht gefunden.',
   'Customer account with the given credentials not found.': 'Kundenkonto mit den angegebenen Anmeldeinformationen nicht gefunden.',
   'Successfully logged in': 'Erfolgreich angemeldet',
