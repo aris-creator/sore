@@ -149,7 +149,8 @@ module.exports = {
 						['/general/error-handling', 'Error Handling'],
 						['/general/logging', 'Logging'],
 						['/general/performance', 'Performance'],
-						['/general/context', 'Application Context']
+						['/general/context', 'Application Context'],
+						['/general/notifications', 'In-app Notifications']
 					]
 				},
 				{
