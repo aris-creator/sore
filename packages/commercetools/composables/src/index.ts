@@ -12,6 +12,7 @@ import useUserShipping from './useUserShipping';
 import useUserBilling from './useUserBilling';
 import useWishlist from './useWishlist';
 import useShipping from './useShipping';
+import useBilling from './useBilling';
 import { track } from '@vue-storefront/core';
 
 track('VSFCommercetools');
@@ -28,7 +29,8 @@ export {
   useUserShipping,
   useReview,
   useFacet,
-  useShipping
+  useShipping,
+  useBilling
 };
 
 export * from './getters';
