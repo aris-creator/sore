@@ -181,31 +181,18 @@
       >
         {{ $t('Add new address') }}
       </SfButton>
-      <SfHeading
-        v-if="isShippingDetailsCompleted && !dirty"
-        :level="3"
-        title="Shipping method"
-        class="sf-heading--left sf-heading--no-underline title"
-      />
       <div class="form">
         <div class="form__action">
           <nuxt-link
             to="/checkout/personal-details"
             class="sf-button color-secondary form__back-button"
+            v-if="!isShippingDetailsCompleted"
             >Go back</nuxt-link>
           <SfButton
             class="form__action-button"
             type="submit"
-            v-if="isShippingDetailsCompleted && !dirty"
-            :disabled="!isShippingMethodCompleted"
-          >
-            {{ $t('Continue to payment') }}
-          </SfButton>
-          <SfButton
-            class="form__action-button"
-            type="submit"
             :disabled="loading"
-            v-else
+            v-if="!(isShippingDetailsCompleted && !dirty)"
           >
             {{ $t('Select shipping method') }}
           </SfButton>
@@ -261,7 +248,9 @@ export default {
     ValidationObserver
   },
   props: {
-    handleShippingAddressSubmit: Function
+    handleShippingAddressSubmit: Function,
+    isShippingDetailsCompleted: Boolean,
+    isShippingMethodCompleted: Boolean
   },
   setup(props, context) {
     const { $ct: { config } } = useVSFContext();
@@ -270,8 +259,6 @@ export default {
     const { shipping: userShipping, load: loadUserShipping, setDefaultAddress } = useUserShipping();
 
     const shippingDetails = ref(address.value || {});
-    const isShippingMethodCompleted = ref(false);
-    const isShippingDetailsCompleted = ref(false);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
     const setAsDefault = ref(false);
@@ -296,7 +283,7 @@ export default {
         }
       }
       reset();
-      isShippingDetailsCompleted.value = true;
+      context.emit('update:isShippingDetailsCompleted', true);
     };
 
     const handleAddNewAddressBtnClick = () => {
@@ -308,13 +295,13 @@ export default {
       shippingDetails.value = {...address};
       currentAddressId.value = address.id;
       canAddNewAddress.value = false;
-      isShippingDetailsCompleted.value = false;
-      isShippingMethodCompleted.value = false;
+      context.emit('update:isShippingDetailsCompleted', false);
+      context.emit('update:isShippingMethodCompleted', false);
     };
 
     const changeDetails = (field, value) => {
       shippingDetails.value[field] = value;
-      isShippingMethodCompleted.value = false;
+      context.emit('update:isShippingMethodCompleted', false);
       currentAddressId.value = NOT_SELECTED_ADDRESS;
     };
 
@@ -364,8 +351,6 @@ export default {
       getShippingMethodPrice,
 
       hasSavedShippingAddress,
-      isShippingMethodCompleted,
-      isShippingDetailsCompleted,
 
       handleAddressSubmit,
       handleStepSubmit,
