@@ -296,6 +296,7 @@ export default {
 
     const changeDetails = (field, value) => {
       shippingDetails.value[field] = value;
+      context.emit('update:isShippingDetailsCompleted', false);
       context.emit('update:isShippingMethodCompleted', false);
       currentAddressId.value = NOT_SELECTED_ADDRESS;
     };
