@@ -2,12 +2,12 @@
   <div>
     <SfHeading
       :level="3"
-      title="Shipping"
+      :title="$t('Shipping')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <ShippingForm
-      :handleShippingAddressSubmit="handleShippingAddressSubmit"
-      @stepSubmit="handleStepSubmit"
+      :handleShippingAddressSubmit="saveShippingAddress"
+      @submit="$router.push('/checkout/payment')"
     />
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
     SfHeading,
     ShippingForm
   },
-  setup(_, context) {
+  setup () {
     const {
       save,
       load
@@ -36,15 +36,8 @@ export default {
       await load();
     });
 
-    const handleShippingAddressSubmit = async shippingDetails => {
-      await save({ shippingDetails });
-    };
-
-    const handleStepSubmit = () => context.root.$router.push('/checkout/payment');
-
     return {
-      handleShippingAddressSubmit,
-      handleStepSubmit
+      saveShippingAddress: save
     };
   }
 };
